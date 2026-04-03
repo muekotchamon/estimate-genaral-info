@@ -126,3 +126,5 @@ export const insuranceFieldClass =
   'w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-[#F83B3B] focus:ring-2 focus:ring-[#F83B3B]/20 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-500'
 
 export const insuranceNotesClass = `${insuranceFieldClass} min-h-[120px] resize-y py-2.5 leading-relaxed`
+
+export const insuranceNotesClassCompact = `${insuranceFieldClass} min-h-0 resize-none py-1.5 leading-snug`

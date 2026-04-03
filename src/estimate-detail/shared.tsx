@@ -6,6 +6,33 @@ export function googleMapsUrlForAddress(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
 }
 
+/** Hero “GIS” — opens job site in maps (same query as Google Maps search). */
+export function GisHeroButton({
+  address,
+  size = 'md',
+}: {
+  address: string
+  size?: 'sm' | 'md'
+}) {
+  const sizeCls =
+    size === 'sm'
+      ? 'h-9 gap-1.5 rounded-lg px-3 text-sm [&_svg]:h-3.5 [&_svg]:w-3.5'
+      : 'h-10 gap-2 rounded-xl px-4 text-sm [&_svg]:h-4 [&_svg]:w-4'
+
+  return (
+    <a
+      href={googleMapsUrlForAddress(address)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex w-full items-center justify-center font-medium ${btnHeaderSecondary} ${sizeCls} sm:w-auto`}
+      aria-label={`Open job site in map (GIS): ${address}`}
+    >
+      <MapPinned className="shrink-0" strokeWidth={size === 'sm' ? 2 : 1.75} aria-hidden />
+      GIS
+    </a>
+  )
+}
+
 /** Compact control next to an “Address” label */
 export function GoogleMapsLinkButton({
   address,
@@ -55,13 +82,30 @@ export const btnHeaderSecondary =
 export const customerEyebrow =
   'flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 before:block before:h-3 before:w-[3px] before:shrink-0 before:rounded-full before:bg-[#F83B3B] before:content-[""]'
 
-/** Estimate / reference chip — calm surface, readable text */
-export const estimateChip =
-  'inline-flex items-center rounded-lg border border-slate-200/90 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm'
+const heroMetaLabel =
+  'text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-500'
 
-/** Subtle brand accent on chip (optional dot) — use inside chip if needed */
-export const estimateChipAccent =
-  'inline-flex items-center gap-2 rounded-lg border border-[#F83B3B]/20 bg-white px-3 py-1.5 text-xs font-semibold text-[#C62828] shadow-sm'
+/** Company (left) + billing address (right) under customer name, above phone/email */
+export function CustomerHeroMeta({
+  companyName,
+  billingAddress,
+}: {
+  companyName: string
+  billingAddress: string
+}) {
+  return (
+    <div className="mt-4 flex flex-col gap-4 text-sm sm:flex-row sm:items-start sm:gap-8">
+      <div className="min-w-0 flex-1">
+        <p className={heroMetaLabel}>Company name</p>
+        <p className="mt-0.5 font-medium text-slate-900">{companyName}</p>
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className={heroMetaLabel}>Billing address</p>
+        <p className="mt-0.5 text-slate-800">{billingAddress}</p>
+      </div>
+    </div>
+  )
+}
 
 /** Hero / header card — same shell as other cards, subtle warm bottom wash (no red border) */
 export const heroCardClass =

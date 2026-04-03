@@ -27,6 +27,25 @@
   }
 }
 
+@page {
+  margin: 14mm;
+}
+
+@media print {
+  html,
+  body,
+  #root {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Printing from job-document modal: hide CRM shell so only the “paper” exports */
+  body.document-modal-open #root {
+    display: none !important;
+  }
+}
+
 /* Stylized map placeholder (dark teal + golden “streets”) */
 .map-mockup {
   position: relative;
