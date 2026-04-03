@@ -87,7 +87,7 @@ export function EstimateDetailsPage() {
         role="tabpanel"
         id={`panel-${activeTab.id}`}
         aria-labelledby={`tab-${activeTab.id}`}
-        className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain [scrollbar-gutter:stable]"
+        className="flex min-h-0 flex-1 flex-col overflow-hidden"
       >
         <Panel />
       </div>

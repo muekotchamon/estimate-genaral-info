@@ -18,29 +18,30 @@ function documentsInOrder() {
 }
 
 const pdfButtonClass =
-  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#E02E2E] transition hover:border-[#F83B3B]/35 hover:bg-red-50 hover:text-[#C62828] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F83B3B]'
+  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold uppercase tracking-wide text-[#E02E2E] transition hover:border-[#F83B3B]/35 hover:bg-red-50 hover:text-[#C62828] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F83B3B] sm:px-3.5 sm:py-2 sm:text-[13px]'
+
+const pdfButtonClassDense =
+  'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#E02E2E] transition hover:border-[#F83B3B]/35 hover:bg-red-50 hover:text-[#C62828] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F83B3B] sm:px-3 sm:py-2 sm:text-xs'
 
 export function DocumentsList({ dense }: { dense?: boolean }) {
   const { openDocument } = useDocumentModal()
   const ordered = documentsInOrder()
-  const gap = dense ? 'gap-1.5' : 'gap-2'
-  const iconBox = dense ? 'h-6 w-6 rounded-lg' : 'h-7 w-7 rounded-xl'
-  const iconSz = dense ? 'h-3 w-3' : 'h-3.5 w-3.5'
+  const rowGap = dense ? 'gap-3 sm:gap-4' : 'gap-4 sm:gap-5'
+  const iconBox = dense
+    ? 'h-9 w-9 rounded-xl sm:h-10 sm:w-10'
+    : 'h-11 w-11 rounded-xl sm:h-12 sm:w-12'
+  const iconSz = dense ? 'h-4 w-4 sm:h-[18px] sm:w-[18px]' : 'h-5 w-5 sm:h-6 sm:w-6'
   const titleCls = dense
-    ? 'whitespace-nowrap text-[12px] font-semibold text-slate-900'
-    : 'whitespace-nowrap text-[13px] font-semibold text-slate-900'
+    ? 'min-w-0 flex-1 text-sm font-semibold leading-snug text-slate-900 sm:text-[15px]'
+    : 'min-w-0 flex-1 text-base font-semibold leading-snug text-slate-900 sm:text-[17px]'
 
   return (
-    <div
-      role="list"
-      aria-label="Estimate documents"
-      className="flex flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4"
-    >
+    <div role="list" aria-label="Estimate documents" className="flex flex-col">
       {ordered.map((doc) => (
         <div
           key={doc.id}
           role="listitem"
-          className={`flex min-w-0 max-w-full items-center ${gap}`}
+          className={`flex w-full min-w-0 max-w-full items-center border-b border-slate-100 py-3.5 last:border-b-0 sm:py-4 ${rowGap}`}
         >
           <div
             className={`flex shrink-0 items-center justify-center bg-red-50 text-[#D32F2F] ${iconBox}`}
@@ -50,7 +51,7 @@ export function DocumentsList({ dense }: { dense?: boolean }) {
           <span className={titleCls}>{doc.title}</span>
           <button
             type="button"
-            className={pdfButtonClass}
+            className={dense ? pdfButtonClassDense : pdfButtonClass}
             aria-label={`Open ${doc.title} — print or save as PDF`}
             onClick={() => {
               if (isDocumentSlug(doc.id)) openDocument(doc.id)

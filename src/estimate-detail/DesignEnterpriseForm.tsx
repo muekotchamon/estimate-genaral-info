@@ -10,6 +10,7 @@ import {
   insuranceNotesClassCompact,
   useInsuranceForm,
 } from './insurance-form-context'
+import { GisCard } from './GisCard'
 import { MapPlaceholderCard } from './MapPlaceholderCard'
 import {
   Card,
@@ -20,7 +21,6 @@ import {
   btnHeaderSecondary,
   CustomerHeroMeta,
   customerEyebrow,
-  GisHeroButton,
   GoogleMapsLinkButton,
   heroCardClass,
 } from './shared'
@@ -94,7 +94,8 @@ export function DesignEnterpriseForm() {
 
   return (
     <Shell>
-      <header className="mb-4">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <header className="mb-4 shrink-0">
         <Card className={`p-5 sm:p-6 lg:p-8 ${heroCardClass}`}>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-0">
             <div className="min-w-0 flex-1 lg:pr-4 xl:pr-6">
@@ -137,17 +138,17 @@ export function DesignEnterpriseForm() {
                   Email
                 </a>
               </div>
-              <GisHeroButton address={e.project.address} />
             </div>
           </div>
         </Card>
       </header>
 
-      <div className="mt-1 flex w-full flex-col gap-5">
+      <div className="mt-1 flex min-h-0 w-full flex-1 flex-col gap-4 overflow-hidden">
         <EnterpriseSection
           step="01"
           title="Customer"
           description="Primary contact on file for this estimate."
+          className="shrink-0"
         >
           <div className="space-y-5">
             <ReadonlyRow label="Full name" value={e.customer.name} />
@@ -164,22 +165,19 @@ export function DesignEnterpriseForm() {
           </div>
         </EnterpriseSection>
 
-        <div className="grid w-full grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-stretch">
+        <div className="grid min-h-0 w-full flex-1 grid-cols-1 gap-4 overflow-y-auto overscroll-y-contain lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,1.35fr)] lg:grid-rows-1 lg:items-stretch lg:gap-4 lg:overflow-hidden xl:gap-5">
           <EnterpriseSection
             step="02"
             title="Project"
             description="Property and work classification."
+            className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden"
+            bodyClassName="min-h-0 flex-1 overflow-y-auto overscroll-y-contain p-5 sm:p-6"
           >
             <div className="space-y-5">
               <ReadonlyRow
                 label="Service address"
                 value={e.project.address}
                 labelAction={<GoogleMapsLinkButton address={e.project.address} />}
-              />
-              <MapPlaceholderCard
-                address={e.project.address}
-                fallbackCoordinates={e.project.mapGeocodeFallback}
-                mapFrameSize="tall"
               />
               <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 <ReadonlyRow label="Property type" value={e.project.propertyType} />
@@ -190,10 +188,15 @@ export function DesignEnterpriseForm() {
                   value={`${e.project.warrantyYears} years`}
                 />
               </div>
+              <MapPlaceholderCard
+                address={e.project.address}
+                fallbackCoordinates={e.project.mapGeocodeFallback}
+                mapFrameSize="tall"
+              />
             </div>
           </EnterpriseSection>
 
-          <div className="flex min-h-0 flex-col gap-5 lg:h-full lg:min-h-0">
+          <div className="flex min-h-0 flex-col gap-3 lg:h-full lg:max-h-full lg:min-h-0">
             <div className="flex shrink-0">
               <EnterpriseSection
                 className="flex w-full min-w-0 shrink-0 flex-col"
@@ -308,7 +311,12 @@ export function DesignEnterpriseForm() {
               </EnterpriseSection>
             </div>
           </div>
+
+          <div className="min-h-0 min-w-0 lg:flex lg:h-full lg:min-h-0 lg:flex-col lg:overflow-hidden lg:overscroll-contain">
+            <GisCard />
+          </div>
         </div>
+      </div>
       </div>
     </Shell>
   )

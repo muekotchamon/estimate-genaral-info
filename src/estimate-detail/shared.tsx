@@ -6,13 +6,15 @@ export function googleMapsUrlForAddress(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
 }
 
-/** Hero “GIS” — opens job site in maps (same query as Google Maps search). */
+/** Opens job site in maps (same query as Google Maps search). */
 export function GisHeroButton({
   address,
   size = 'md',
+  className = '',
 }: {
   address: string
   size?: 'sm' | 'md'
+  className?: string
 }) {
   const sizeCls =
     size === 'sm'
@@ -24,7 +26,7 @@ export function GisHeroButton({
       href={googleMapsUrlForAddress(address)}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex w-full items-center justify-center font-medium ${btnHeaderSecondary} ${sizeCls} sm:w-auto`}
+      className={`inline-flex w-full items-center justify-center font-medium ${btnHeaderSecondary} ${sizeCls} sm:w-auto ${className}`}
       aria-label={`Open job site in map (GIS): ${address}`}
     >
       <MapPinned className="shrink-0" strokeWidth={size === 'sm' ? 2 : 1.75} aria-hidden />
@@ -117,8 +119,10 @@ export const contentCardClass =
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
-    <div className="bg-[#F1F2F4] pb-3 pt-1">
-      <div className="w-full px-4 sm:px-6 lg:px-8">{children}</div>
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-[#F1F2F4] pt-1 pb-3">
+      <div className="flex min-h-0 w-full flex-1 flex-col overflow-hidden px-4 sm:px-6 lg:px-8">
+        {children}
+      </div>
     </div>
   )
 }

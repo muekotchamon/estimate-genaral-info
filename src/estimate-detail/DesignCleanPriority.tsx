@@ -3,6 +3,7 @@ import { Building2, Briefcase, Mail, MapPin, Phone, ShieldCheck, User } from 'lu
 import { estimateRecord as e } from './data'
 import { DocumentsList } from './DocumentsCard'
 import { LeadReferralSection } from './LeadReferralCard'
+import { GisCard } from './GisCard'
 import { MapPlaceholderCard } from './MapPlaceholderCard'
 import {
   InsuranceActiveSwitch,
@@ -20,7 +21,6 @@ import {
   btnHeaderSecondary,
   CustomerHeroMeta,
   customerEyebrow,
-  GisHeroButton,
   GoogleMapsLinkButton,
   heroCardClass,
 } from './shared'
@@ -31,7 +31,8 @@ export function DesignCleanPriority() {
 
   return (
     <Shell>
-      <header className="mb-4">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <header className="mb-4 shrink-0">
         <Card className={`overflow-hidden p-5 sm:p-6 lg:p-8 ${heroCardClass}`}>
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-0">
             <div className="min-w-0 flex-1 lg:pr-4 xl:pr-6">
@@ -82,15 +83,17 @@ export function DesignCleanPriority() {
                   Email
                 </a>
               </div>
-              <GisHeroButton address={e.project.address} />
             </div>
           </div>
         </Card>
       </header>
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-stretch lg:gap-6">
-        <Card className="flex min-h-0 flex-col p-5 sm:p-6">
-          <SectionTitle>Project</SectionTitle>
+      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-y-auto overscroll-y-contain lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)_minmax(0,1.35fr)] lg:grid-rows-1 lg:items-stretch lg:gap-4 lg:overflow-hidden xl:gap-5">
+        <Card className="flex min-h-0 flex-col overflow-hidden p-5 sm:p-6 lg:h-full lg:max-h-full">
+          <div className="shrink-0">
+            <SectionTitle>Project</SectionTitle>
+          </div>
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain">
           <div className="space-y-4">
             <div>
               <FieldLabel
@@ -105,10 +108,6 @@ export function DesignCleanPriority() {
                 <FieldValue>{e.project.address}</FieldValue>
               </div>
             </div>
-            <MapPlaceholderCard
-              address={e.project.address}
-              fallbackCoordinates={e.project.mapGeocodeFallback}
-            />
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <div>
                 <FieldLabel>Property type</FieldLabel>
@@ -155,10 +154,15 @@ export function DesignCleanPriority() {
                 </div>
               </div>
             </div>
+            <MapPlaceholderCard
+              address={e.project.address}
+              fallbackCoordinates={e.project.mapGeocodeFallback}
+            />
+          </div>
           </div>
         </Card>
 
-        <div className="flex min-h-0 flex-col gap-5 lg:h-full lg:min-h-0">
+        <div className="flex min-h-0 flex-col gap-3 lg:h-full lg:max-h-full lg:min-h-0">
           <Card className="flex w-full min-w-0 shrink-0 flex-col p-3 sm:p-4">
             <SectionTitle action={<InsuranceActiveSwitch id={switchId} compact />}>
               Insurance
@@ -253,6 +257,11 @@ export function DesignCleanPriority() {
             <DocumentsList dense />
           </Card>
         </div>
+
+        <div className="min-h-0 min-w-0 lg:flex lg:h-full lg:min-h-0 lg:flex-col lg:overflow-hidden lg:overscroll-contain">
+          <GisCard />
+        </div>
+      </div>
       </div>
     </Shell>
   )
